@@ -5,14 +5,17 @@
 #include "PantallaOLED.h"
 
 // Pines
+#define SENSOR_DHT_PIN 5
+#define LED_VENTILACION_PIN 4
+#define LED_RIEGO_PIN 12
 #define BUTTON_PIN 14
 #define POTENCIOMETRO_PIN 32
 
 // Objetos
-SensorDHT sensor(5, DHT22);
-Ventilacion ventilacion(4, 25.0);
-Riego riego(12);
 PantallaOLED oled;
+SensorDHT sensor(SENSOR_DHT_PIN, DHT22);
+Ventilacion ventilacion(LED_VENTILACION_PIN, 25.0);
+Riego riego(LED_RIEGO_PIN);
 
 // Variables globales
 int pantallaActual = 1;            // 1 = temperatura, 2 = humedad
@@ -21,7 +24,7 @@ unsigned long ultimoCambio = 0;    // tiempo del último cambio
 const unsigned long DEBOUNCE = 250; // ms
 
 void setup() {
-    Serial.begin(115200);
+    Serial.begin(9600);
     pinMode(BUTTON_PIN, INPUT_PULLUP);
 
     sensor.begin();
